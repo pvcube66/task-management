@@ -24,29 +24,21 @@ const TaskItem: React.FC<TaskItemProps> = ({
   onToggleComplete,
 }) => {
   const getPriorityColor = (priority: string) => {
-    switch (priority) {
-      case 'High':
-        return 'bg-red-100 text-red-800';
-      case 'Medium':
-        return 'bg-yellow-100 text-yellow-800';
-      case 'Low':
-        return 'bg-green-100 text-green-800';
-      default:
-        return 'bg-gray-100 text-gray-800';
-    }
+    const colors: Record<string, string> = {
+      High: 'bg-red-100 text-red-800',
+      Medium: 'bg-yellow-100 text-yellow-800',
+      Low: 'bg-green-100 text-green-800',
+    };
+    return colors[priority] || 'bg-gray-100 text-gray-800';
   };
 
   const getCategoryColor = (category: string) => {
-    switch (category) {
-      case 'Work':
-        return 'bg-blue-100 text-blue-800';
-      case 'Personal':
-        return 'bg-purple-100 text-purple-800';
-      case 'Learning':
-        return 'bg-indigo-100 text-indigo-800';
-      default:
-        return 'bg-gray-100 text-gray-800';
-    }
+    const colors: Record<string, string> = {
+      Work: 'bg-blue-100 text-blue-800',
+      Personal: 'bg-purple-100 text-purple-800',
+      Learning: 'bg-indigo-100 text-indigo-800',
+    };
+    return colors[category] || 'bg-gray-100 text-gray-800';
   };
 
   return (
@@ -55,7 +47,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
         <motion.div
           ref={provided.innerRef}
           {...provided.draggableProps}
-          {...provided.dragHandleProps}
+          {...(provided.dragHandleProps as object)} 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
@@ -74,18 +66,12 @@ const TaskItem: React.FC<TaskItemProps> = ({
                   : 'border-gray-300 hover:border-indigo-500'
               }`}
             >
-              {task.completed && (
-                <CheckCircleIcon className="h-4 w-4 text-white" />
-              )}
+              {task.completed && <CheckCircleIcon className="h-4 w-4 text-white" />}
             </motion.button>
 
             <div className="flex-1">
               <div className="flex items-center justify-between">
-                <h3
-                  className={`text-lg font-medium ${
-                    task.completed ? 'text-gray-500 line-through' : 'text-gray-900'
-                  }`}
-                >
+                <h3 className={`text-lg font-medium ${task.completed ? 'text-gray-500 line-through' : 'text-gray-900'}`}>
                   {task.title}
                 </h3>
                 <div className="flex items-center space-x-2">
@@ -109,28 +95,16 @@ const TaskItem: React.FC<TaskItemProps> = ({
               </div>
 
               {task.description && (
-                <p
-                  className={`mt-1 text-sm ${
-                    task.completed ? 'text-gray-400' : 'text-gray-600'
-                  }`}
-                >
+                <p className={`mt-1 text-sm ${task.completed ? 'text-gray-400' : 'text-gray-600'}`}>
                   {task.description}
                 </p>
               )}
 
               <div className="mt-2 flex flex-wrap items-center gap-2">
-                <span
-                  className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${getPriorityColor(
-                    task.priority
-                  )}`}
-                >
+                <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${getPriorityColor(task.priority)}`}>
                   {task.priority}
                 </span>
-                <span
-                  className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${getCategoryColor(
-                    task.category
-                  )}`}
-                >
+                <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${getCategoryColor(task.category)}`}>
                   {task.category}
                 </span>
                 {task.dueDate && (
@@ -147,4 +121,4 @@ const TaskItem: React.FC<TaskItemProps> = ({
   );
 };
 
-export default TaskItem; 
+export default TaskItem;
