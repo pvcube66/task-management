@@ -30,13 +30,16 @@ A modern, full-stack task management application built with React, Node.js, and 
 - Express.js
 - MongoDB with Mongoose
 - JWT Authentication
+- 
+###Screenshots of the app
+![Screenshot 2025-03-26 172643](https://github.com/user-attachments/assets/07f062a5-64c5-4775-9aab-660faa88280a)
 
-## Getting Started
+![Screenshot 2025-03-26 172626](https://github.com/user-attachments/assets/3e6af1cd-7421-4b1d-814c-d8769c2f28b8)
+![Screenshot 2025-03-26 172706](https://github.com/user-attachments/assets/2aedf178-5902-43a7-a8a4-de183e0fc931)
 
-### Prerequisites
-- Node.js (v14 or higher)
-- MongoDB
-- npm or yarn
+![Screenshot 2025-03-26 172727](https://github.com/user-attachments/assets/7a400518-3dbd-478f-b0e8-d72e4f7c5432)
+![Screenshot 2025-03-26 172951](https://github.com/user-attachments/assets/ab4ed3bc-e89b-4cb0-9032-c11c149fc8a2)
+
 
 ### Installation
 
