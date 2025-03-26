@@ -4,28 +4,27 @@ const { body, validationResult } = require('express-validator');
 const auth = require('../middleware/auth');
 const Task = require('../models/Task');
 
-// Get all tasks for the authenticated user
+ 
 router.get('/', auth, async (req, res) => {
   try {
     const match = {};
     const sort = {};
 
-    // Filter by completion status
+     
     if (req.query.completed) {
       match.completed = req.query.completed === 'true';
     }
-
-    // Filter by category
+ 
     if (req.query.category) {
       match.category = req.query.category;
     }
 
-    // Filter by priority
+    
     if (req.query.priority) {
       match.priority = req.query.priority;
     }
 
-    // Sort by creation date or due date
+    
     if (req.query.sortBy) {
       const parts = req.query.sortBy.split(':');
       sort[parts[0]] = parts[1] === 'desc' ? -1 : 1;
@@ -43,7 +42,7 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
-// Create a new task
+ 
 router.post('/', [auth, [
   body('title').trim().notEmpty().withMessage('Title is required'),
   body('priority').isIn(['Low', 'Medium', 'High']).withMessage('Invalid priority level'),
@@ -68,7 +67,7 @@ router.post('/', [auth, [
   }
 });
 
-// Update a task
+ 
 router.put('/:id', [auth, [
   body('title').optional().trim().notEmpty().withMessage('Title cannot be empty'),
   body('priority').optional().isIn(['Low', 'Medium', 'High']).withMessage('Invalid priority level'),
@@ -104,7 +103,7 @@ router.put('/:id', [auth, [
   }
 });
 
-// Delete a task
+ 
 router.delete('/:id', auth, async (req, res) => {
   try {
     const task = await Task.findOneAndDelete({ _id: req.params.id, owner: req.user._id });
@@ -120,7 +119,7 @@ router.delete('/:id', auth, async (req, res) => {
   }
 });
 
-// Reorder tasks
+ 
 router.patch('/reorder', auth, async (req, res) => {
   try {
     const { tasks } = req.body;
@@ -129,7 +128,7 @@ router.patch('/reorder', auth, async (req, res) => {
       return res.status(400).json({ message: 'Invalid request format' });
     }
 
-    // Update each task's order in a transaction
+    
     const session = await Task.startSession();
     await session.withTransaction(async () => {
       for (const { id, order } of tasks) {

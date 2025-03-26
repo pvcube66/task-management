@@ -40,7 +40,7 @@ const taskSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Index for efficient querying
+
 taskSchema.index({ owner: 1, completed: 1 });
 taskSchema.index({ owner: 1, category: 1 });
 taskSchema.index({ owner: 1, priority: 1 });
